@@ -4,7 +4,11 @@ import Details from './Details';
 
 const BookCard = styled.div`
     width: 10%;
+    height: 8vw;
     cursor: pointer;
+    &:hover {
+        width: 12%;
+    }
 `
 
 const BookTitle = styled.h5`
@@ -17,14 +21,18 @@ const CardBody = styled.div`
     padding: 2px;
 `
 
+const BookCover = styled.img`
+
+`
+
 function LibraryContent(props) {
     const [activeBook,setActiveBook] = useState(null)
 
     return (
         <>
             {props.books.map(book => {
-                return <BookCard className='card'>
-                    <img 
+                return <BookCard>
+                    <BookCover 
                         src={`http://covers.openlibrary.org/b/id/${book.data.covers[0]}-L.jpg`} 
                         className='card-img-top'
                         alt={`cover for ${book.title}`}  
@@ -32,9 +40,9 @@ function LibraryContent(props) {
                         data-target='detailsModal' 
                         onClick={()=>setActiveBook(book)}  
                     />
-                    <CardBody className='card-body'>
+                    {/* <CardBody className='card-body'>
                         <BookTitle className='card-title'>{book.title}</BookTitle>
-                    </CardBody>
+                    </CardBody> */}
                 </BookCard>
             })}
             {activeBook && <Details book={activeBook} setActiveBook={setActiveBook}/>}

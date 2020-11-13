@@ -2,8 +2,6 @@ import './App.css';
 import {useEffect, useState} from 'react';
 import Header from '../Partials/Header'
 import Footer from '../Partials/Footer'
-import SearchForm from '../Main/SearchForm'
-import SearchResults from '../Main/SearchResults'
 import Login from '../Main/Login'
 import SignUp from '../Main/Signup'
 import Library from '../Main/Library'
@@ -45,7 +43,7 @@ function App() {
 
   const updateLibraryData = () => {
     if (currentUser) {
-      axios.get('http://localhost:8000/api/library',{
+      axios.get(`${process.env.REACT_APP_DATABASE_URL}/library`,{
         headers: {
           Authorization: 'Bearer '+currentUser.token
         }
@@ -59,7 +57,7 @@ function App() {
   const handleLogin = (userData) => {
     axios({
       method:'post',
-      url:`http://localhost:8000/api/token/`,
+      url:`${process.env.REACT_APP_DATABASE_URL}/token/`,
       data: userData
     })
     .then(resp => {
@@ -88,7 +86,7 @@ function App() {
     console.log(userData)
     axios({
       method: 'POST',
-      url:`http://localhost:8000/api/users/`,
+      url:`${process.env.REACT_APP_DATABASE_URL}/users/`,
       data: userData,
     })
     .then(resp => {
@@ -104,7 +102,7 @@ function App() {
     const identifier = key.replace('/works/','');
     axios({
       method: 'POST',
-      url: `http://localhost:8000/api/books/`,
+      url: `${process.env.REACT_APP_DATABASE_URL}/books/`,
       data: {
         key: identifier,
         libraryid: activeLibraryID
@@ -122,7 +120,7 @@ function App() {
   const handleAddNewLibrary = (name) => {
     axios({
       method: 'post',
-      url: 'http://localhost:8000/api/library/',
+      url: `${process.env.REACT_APP_DATABASE_URL}/library/`,
       data: {
           name: name
       },
@@ -141,7 +139,7 @@ function App() {
   const handleDeleteLibrary = (id) => {
     axios({
       method: 'DELETE',
-      url: `http://localhost:8000/api/library/${id}`,
+      url: `${process.env.REACT_APP_DATABASE_URL}/library/${id}`,
       headers: {
         Authorization: 'Bearer '+currentUser.token
       }
@@ -156,7 +154,7 @@ function App() {
       <Header user={currentUser} handleLogout={handleLogout} />
       <Main>
         <Switch>
-          <Route path='/'>
+          <Route exact path='/'>
             {libraryData &&
               <Library 
                 libraryData={libraryData} 
@@ -168,10 +166,10 @@ function App() {
               />
             } 
           </Route>
-          <Route path='/signup'>
+          <Route exact path='/signup'>
             <SignUp handleSignUp={handleSignUp} />
           </Route>
-          <Route path='/login'>
+          <Route exact path='/login'>
             <Login handleLogin={handleLogin} loginError={loginError}/>
           </Route>
         </Switch>

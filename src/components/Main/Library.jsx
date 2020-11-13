@@ -14,6 +14,7 @@ const LibraryContentDiv = styled.div`
     width: 100%;
     display: flex !important;
     justify-content: center;
+    padding-top: 7%;
 `
 
 const LibraryContentWrapper = styled.div`
