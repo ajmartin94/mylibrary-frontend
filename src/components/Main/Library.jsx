@@ -16,7 +16,8 @@ const LibraryContentWrapper = styled.div`
     background-image: url('Background.jpg');
     background-size: 100% auto;
     background-repeat: no-repeat;
-    height: 1000px;
+    height: 50vw;
+    box-shadow: 0 0 5px 2px gray;
 `
 
 const Tab = styled.div`

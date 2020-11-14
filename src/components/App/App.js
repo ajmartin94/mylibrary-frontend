@@ -113,7 +113,6 @@ function App() {
     })
     .then(resp => {
         updateLibraryData()
-        history.go(-1)
     })
   }
 
@@ -151,7 +150,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div className='bg-light'>
       <Header user={currentUser} handleLogout={handleLogout} />
       <Main>
         <Switch>

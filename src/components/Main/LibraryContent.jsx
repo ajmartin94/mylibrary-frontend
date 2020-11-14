@@ -4,17 +4,23 @@ import Details from './Details';
 
 const LibraryContentDiv = styled.div`
     width: 100%;
-    display: flex !important;
-    justify-content: center;
-    padding-top: 7%;
+    padding-top: 5vw;
 `
+
+const ShelfDiv = styled.div`
+    width: 100%;
+    height: 11vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: .5vw 0;
+`
+
 const BookCard = styled.div`
     width: 10%;
-    height: 8vw;
-    cursor: pointer;
-    &:hover {
-        width: 12%;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 const BookTitle = styled.h5`
@@ -28,26 +34,44 @@ const CardBody = styled.div`
 `
 
 const BookCover = styled.img`
-
+    height: 9vw;
+    width: auto;    
+    cursor: pointer;
+    &:hover {
+        height: 10vw;
+    }
 `
 
 function LibraryContent(props) {
     const [activeBook,setActiveBook] = useState(null)
 
+    const numberOfShelves = (Math.floor(props.books.length/10)+1)
+    const mappableArray = []
+    for (let i = 1; i <= numberOfShelves; i++) {
+        mappableArray.push(i)
+    }
+
     return (
         <LibraryContentDiv>
-            {props.books.map(book => {
-                return <BookCard>
-                    <BookCover 
-                        src={`http://covers.openlibrary.org/b/id/${book.data.covers[0]}-L.jpg`} 
-                        className='card-img-top'
-                        alt={`cover for ${book.title}`}  
-                        data-toggle='modal' 
-                        data-target='detailsModal' 
-                        onClick={()=>setActiveBook(book)}  
-                    />
-                </BookCard>
+            {mappableArray.map(shelfNumber => {
+                return <ShelfDiv>
+                    {props.books.map((book,index) => {
+                        if (index >= (shelfNumber-1)*10 && index < shelfNumber*10) {
+                            return <BookCard>
+                                <BookCover 
+                                    src={`http://covers.openlibrary.org/b/id/${book.data.covers[0]}-L.jpg`} 
+                                    className='card-img-top'
+                                    alt={`cover for ${book.title}`}  
+                                    data-toggle='modal' 
+                                    data-target='detailsModal' 
+                                    onClick={()=>setActiveBook(book)}  
+                                />
+                            </BookCard>
+                        } 
+                    })}
+                </ShelfDiv>
             })}
+            
             {activeBook && <Details book={activeBook} setActiveBook={setActiveBook}/>}
         </LibraryContentDiv>
     )
