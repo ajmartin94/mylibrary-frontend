@@ -1,12 +1,15 @@
 import React,{useState} from 'react';
 import axios from 'axios';
-import {useHistory} from 'react-router-dom';
 import SearchResults from './SearchResults';
+import styled from 'styled-components';
+
+const Form = styled.form`
+    margin: 20px;
+` 
 
 function SearchForm(props) {
     const [searchCriteria,setSearchCriteria] = useState('')
     const [searchData,setSearchData] = useState(null)
-    const history = useHistory()
 
     const handleSearch = (e) => {
         e.preventDefault()
@@ -24,7 +27,7 @@ function SearchForm(props) {
 
     return (
         <>
-            <form className='form-inline' onSubmit={(e)=>handleSearch(e)}>
+            <Form className='form-inline' onSubmit={(e)=>handleSearch(e)}>
                 <input 
                     type='text' 
                     className='form-control mb-2 mr-sm-2' 
@@ -33,7 +36,7 @@ function SearchForm(props) {
                     onChange={(e)=>handleChange(e)}
                 />
                 <button type='submit' className='btn btn-primary mb-2'>Search</button>
-            </form>
+            </Form>
             {searchData && <SearchResults searchData={searchData} handleAddToLibrary={props.handleAddToLibrary} setSearchData={setSearchData} />}
         </>
     )

@@ -1,10 +1,7 @@
 import React,{useState} from 'react';
-import axios from 'axios';
-import {useHistory} from 'react-router-dom'
 
 function AddLibrary(props) {
     const [name, setName] = useState('');
-    const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault()

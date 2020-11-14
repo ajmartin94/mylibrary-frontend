@@ -2,6 +2,12 @@ import React,{useState} from 'react';
 import styled from 'styled-components';
 import Details from './Details';
 
+const LibraryContentDiv = styled.div`
+    width: 100%;
+    display: flex !important;
+    justify-content: center;
+    padding-top: 7%;
+`
 const BookCard = styled.div`
     width: 10%;
     height: 8vw;
@@ -29,7 +35,7 @@ function LibraryContent(props) {
     const [activeBook,setActiveBook] = useState(null)
 
     return (
-        <>
+        <LibraryContentDiv>
             {props.books.map(book => {
                 return <BookCard>
                     <BookCover 
@@ -40,13 +46,10 @@ function LibraryContent(props) {
                         data-target='detailsModal' 
                         onClick={()=>setActiveBook(book)}  
                     />
-                    {/* <CardBody className='card-body'>
-                        <BookTitle className='card-title'>{book.title}</BookTitle>
-                    </CardBody> */}
                 </BookCard>
             })}
             {activeBook && <Details book={activeBook} setActiveBook={setActiveBook}/>}
-        </>
+        </LibraryContentDiv>
     )
 }
 

@@ -1,5 +1,4 @@
 import React,{useState} from 'react';
-// import { Carousel } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal'
 import styled from 'styled-components'
 
@@ -22,7 +21,7 @@ function Details(props) {
     }
 
     return (
-        <Modal show={show} onHide={handleClose} centered>
+        <Modal show={show} onHide={handleClose} size='lg' centered>
             <Modal.Header closeButton>
                 <Modal.Title>{props.book.title}</Modal.Title>
             </Modal.Header>
@@ -63,17 +62,14 @@ function Details(props) {
                         <span className="sr-only">Next</span>
                     </a>
                 </div>
-                {/* // <Carousel interval='1000'>
-                //     {props.book.data.covers.map((cover,index) => {
-                //         return <Carousel.Item key={index}>
-                //             <CoverImg    
-                //                 className='d-block'
-                //                 src={`http://covers.openlibrary.org/b/id/${cover}-L.jpg`}
-                //                 alt={`slide ${index}`}
-                //             />
-                //         </Carousel.Item>
-                //     })}
-                // </Carousel> */}
+                <h5>Description:</h5>
+                <p className='text-muted'>
+                    {typeof props.book.data.description === 'string' ?
+                        props.book.data.description
+                    :
+                        props.book.data.description.value
+                    }
+                </p>
             </Modal.Body>
         </Modal>
     )

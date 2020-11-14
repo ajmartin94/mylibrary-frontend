@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 import LibraryContent from './LibraryContent';
 import styled from 'styled-components';
 import AddLibrary from './AddLibrary'
@@ -9,12 +9,6 @@ const LibraryDiv = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-`
-const LibraryContentDiv = styled.div`
-    width: 100%;
-    display: flex !important;
-    justify-content: center;
-    padding-top: 7%;
 `
 
 const LibraryContentWrapper = styled.div`
@@ -35,6 +29,10 @@ const Tab = styled.div`
 const TrashIcon = styled.svg`
     margin-left: 10px;
     color: red;
+`
+
+const TabList = styled.ul`
+    margin: 10px;
 `
 
 function Library(props) {
@@ -61,7 +59,7 @@ function Library(props) {
                 handleAddToLibrary={props.handleAddToLibrary}
             />
             <LibraryDiv>
-                <ul className='nav nav-tabs' id='libraryTabs' role='tablist'>
+                <TabList className='nav nav-tabs' id='libraryTabs' role='tablist'>
                     {props.libraryData.map((library,index) => {
                         return (
                             <li key={index} className='nav-item' role='presentation'>
@@ -109,17 +107,17 @@ function Library(props) {
                             }
                         </Tab>
                     </li>
-                </ul>
+                </TabList>
                 <LibraryContentWrapper className='tab-content' id='libraryContent'>
                     {props.libraryData.map((library,index)=>{
-                        return <LibraryContentDiv 
+                        return <div 
                             className={library.id===props.activeLibraryID ? 'tab-pane fade show active' : 'tab-pane fade'}
                             id={'tab'+index}
                             role='tabpanel'
                             aria-labelledby={'tab'+index}
                         >
                             <LibraryContent books={library.books} />
-                        </LibraryContentDiv>
+                        </div>
                     })
                     }
                 </LibraryContentWrapper>

@@ -1,6 +1,5 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
-import {useHistory} from 'react-router-dom'
 import {Modal} from 'react-bootstrap';
 
 const CardWrapper = styled.div`
@@ -12,7 +11,6 @@ const CardWrapper = styled.div`
 
 function SearchResults(props) {
     const [show,setShow] = useState(true)
-    const history = useHistory();
 
     const handleAdd = (key) => {
         setShow(false)
