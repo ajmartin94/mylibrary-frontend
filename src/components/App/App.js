@@ -118,6 +118,7 @@ function App() {
   }
 
   const handleAddNewLibrary = (name) => {
+    console.log(`attempting to add library ${name} to url: ${process.env.REACT_APP_DATABASE_URL}/library/`)
     axios({
       method: 'post',
       url: `${process.env.REACT_APP_DATABASE_URL}/library/`,

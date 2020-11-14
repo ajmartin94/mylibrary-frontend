@@ -21,7 +21,7 @@ function SearchResults(props) {
     }
 
     return (
-        <Modal show={show} onHide={()=>setShow(false)} dialogClassName='modal-90w'>
+        <Modal show={show} onHide={()=>setShow(false)} size='lg'>
             <Modal.Header closeButton>
                 <Modal.Title>Search results...</Modal.Title>
             </Modal.Header>

@@ -11,7 +11,6 @@ function AddLibrary(props) {
         props.handleAddNewLibrary(name)
         setName('')
         props.setVisible(false)
-        history.push('/library')
     }
 
     const updateName = (e) => {
