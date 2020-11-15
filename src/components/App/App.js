@@ -149,7 +149,16 @@ function App() {
   }
 
   const handleRemoveBook = (bookId) => {
-
+    axios({
+      method: 'DELETE',
+      url: `${process.env.REACT_APP_DATABASE_URL}/books/${bookId}?libraryId=${activeLibraryID}`,
+      headers: {
+        Authorization: 'Bearer '+currentUser.token
+      }
+    })
+    .then(resp=>{
+      updateLibraryData()
+    })
   }
 
   return (
