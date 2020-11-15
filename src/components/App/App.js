@@ -5,8 +5,9 @@ import Footer from '../Partials/Footer'
 import Login from '../Main/Login'
 import SignUp from '../Main/Signup'
 import Library from '../Main/Library'
+import AllUsers from '../Main/AllUsers'
 import styled from 'styled-components';
-import {Switch,Route,useHistory} from 'react-router-dom';
+import {Switch,Route,useHistory, useParams} from 'react-router-dom';
 import axios from 'axios';
 
 const Main = styled.div`
@@ -21,6 +22,8 @@ function App() {
   const [loginError,setLoginError] = useState(null)
   const [validUser,] = useState(false)
   const [activeLibraryID,setActiveLibraryID] = useState(null)
+  const [allUsers,setAllUsers] = useState(null)
+  const [otherUserData,setOtherUserData] = useState(null)
 
   const history = useHistory();
 
@@ -51,6 +54,11 @@ function App() {
         setLibraryData(resp.data);
       })
     }
+    
+    axios.get(`${process.env.REACT_APP_DATABASE_URL}/users`)
+    .then(resp => {
+      setAllUsers(resp.data);
+    })
   }
 
   const handleLogin = (userData) => {
@@ -161,6 +169,17 @@ function App() {
     })
   }
 
+  const getUserData = (username) => {
+    axios({
+      method: 'GET',
+      url: `${process.env.REACT_APP_DATABASE_URL}/library?username=${username}`
+    })
+    .then(resp => {
+      console.log(resp.data)
+      setOtherUserData(resp.data)
+    })
+  }
+
   return (
     <div className='bg-light'>
       <Header user={currentUser} handleLogout={handleLogout} />
@@ -184,6 +203,18 @@ function App() {
           </Route>
           <Route exact path='/login'>
             <Login handleLogin={handleLogin} loginError={loginError}/>
+          </Route>
+          <Route exact path='/allusers'>
+            <AllUsers users={allUsers} />
+          </Route>
+          <Route exact path='/:username'>
+            <Library
+              libraryData={otherUserData}
+              getUserData={getUserData}
+              activeLibraryID={activeLibraryID}
+              setActiveLibraryID={setActiveLibraryID}
+              otherUser={true}
+            />
           </Route>
         </Switch>
       </Main>

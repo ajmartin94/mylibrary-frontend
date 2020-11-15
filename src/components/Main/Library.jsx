@@ -1,8 +1,9 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import LibraryContent from './LibraryContent';
 import styled from 'styled-components';
 import AddLibrary from './AddLibrary'
 import SearchForm from './SearchForm'
+import { useParams } from 'react-router';
 
 const LibraryDiv = styled.div`
     width: 75%;
@@ -52,16 +53,26 @@ function Library(props) {
     const handleDelete = () => {
         props.handleDeleteLibrary(pendDelete)
         setPendDelete(null)
+
     }
+    const {username} = useParams()
+    
+    useEffect(()=>{
+        if (props.otherUser) {
+            props.getUserData(username)
+        }
+    },[username])
 
     return (
         <>
-            <SearchForm 
-                handleAddToLibrary={props.handleAddToLibrary}
-            />
+            {!props.otherUser &&
+                <SearchForm 
+                    handleAddToLibrary={props.handleAddToLibrary}
+                />
+            }
             <LibraryDiv>
                 <TabList className='nav nav-tabs' id='libraryTabs' role='tablist'>
-                    {props.libraryData.map((library,index) => {
+                    {props.libraryData && props.libraryData.map((library,index) => {
                         return (
                             <li key={index} className='nav-item' role='presentation'>
                                 <Tab
@@ -94,21 +105,23 @@ function Library(props) {
                             </li>
                         )
                     })}
-                    <li className='nav-item' role='presentation'>
-                        <Tab 
-                            className='nav-link'
-                            onClick={visible ? null : flipVisible}
-                        >
-                            {visible ? 
-                                <AddLibrary user={props.user} setVisible={setVisible} handleAddNewLibrary={props.handleAddNewLibrary}/>
-                            : 
-                                '+ Add New Library'
-                            }
-                        </Tab>
-                    </li>
+                    {!props.otherUser &&
+                        <li className='nav-item' role='presentation'>
+                            <Tab 
+                                className='nav-link'
+                                onClick={visible ? null : flipVisible}
+                            >
+                                {visible ? 
+                                    <AddLibrary user={props.user} setVisible={setVisible} handleAddNewLibrary={props.handleAddNewLibrary}/>
+                                : 
+                                    '+ Add New Library'
+                                }
+                            </Tab>
+                        </li>
+                    }
                 </TabList>
                 <LibraryContentWrapper className='tab-content' id='libraryContent'>
-                    {props.libraryData.map((library,index)=>{
+                    {props.libraryData && props.libraryData.map((library,index)=>{
                         return <div 
                             className={library.id===props.activeLibraryID ? 'tab-pane fade show active' : 'tab-pane fade'}
                             id={'tab'+index}
