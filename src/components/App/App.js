@@ -19,7 +19,7 @@ function App() {
   const [libraryData,setLibraryData] = useState(null)
   const [currentUser,setCurrentUser] = useState(null)
   const [loginError,setLoginError] = useState(null)
-  const [validUser,setValidUser] = useState(false)
+  const [validUser,] = useState(false)
   const [activeLibraryID,setActiveLibraryID] = useState(null)
 
   const history = useHistory();
@@ -34,7 +34,6 @@ function App() {
       username: localStorage.getItem('username'),
       password: localStorage.getItem('password')
     }
-    console.log(userData)
     if (userData.username) {
       handleLogin(userData)
       history.push('/')
@@ -149,6 +148,10 @@ function App() {
     })
   }
 
+  const handleRemoveBook = (bookId) => {
+
+  }
+
   return (
     <div className='bg-light'>
       <Header user={currentUser} handleLogout={handleLogout} />
@@ -163,6 +166,7 @@ function App() {
                 handleAddNewLibrary={handleAddNewLibrary}
                 handleDeleteLibrary={handleDeleteLibrary}
                 handleAddToLibrary={handleAddToLibrary} 
+                handleRemoveBook={handleRemoveBook}
               />
             } 
           </Route>

@@ -24,16 +24,6 @@ const BookCard = styled.div`
     align-items: center;
 `
 
-const BookTitle = styled.h5`
-    font-size: 1rem;
-    margin: 0;
-    text-align: center;
-`
-
-const CardBody = styled.div`
-    padding: 2px;
-`
-
 const BookCover = styled.img`
     max-height: 9vw;
     width: auto;
@@ -70,12 +60,14 @@ function LibraryContent(props) {
                                     onClick={()=>setActiveBook(book)}  
                                 />
                             </BookCard>
-                        } 
+                        } else {
+                            return false
+                        }
                     })}
                 </ShelfDiv>
             })}
             
-            {activeBook && <Details book={activeBook} setActiveBook={setActiveBook}/>}
+            {activeBook && <Details book={activeBook} setActiveBook={setActiveBook} handleRemoveBook={props.handleRemoveBook} />}
         </LibraryContentDiv>
     )
 }

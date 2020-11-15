@@ -115,7 +115,10 @@ function Library(props) {
                             role='tabpanel'
                             aria-labelledby={'tab'+index}
                         >
-                            <LibraryContent books={library.books} />
+                            <LibraryContent 
+                                books={library.books} 
+                                handleRemoveBook={props.handleRemoveBook}
+                            />
                         </div>
                     })
                     }
