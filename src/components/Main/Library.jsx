@@ -66,15 +66,13 @@ function Library(props) {
                             <li key={index} className='nav-item' role='presentation'>
                                 <Tab
                                     className={library.id===props.activeLibraryID ? 'nav-link active' : 'nav-link'}
-                                    
+                                    data-toggle='tab'
+                                    role='tab'
+                                    aria-controls={'tab'+index}
+                                    aria-selected={index===0 ? 'true' : 'false'}
+                                    onClick={()=>handleClick(library.id)}
                                 >  
-                                    <div 
-                                        data-toggle='tab'
-                                        role='tab'
-                                        aria-controls={'tab'+index}
-                                        aria-selected={index===0 ? 'true' : 'false'}
-                                        onClick={()=>handleClick(library.id)}
-                                    >
+                                    <div>
                                     {library.name} 
                                     </div>
                                     

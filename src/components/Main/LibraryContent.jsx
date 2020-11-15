@@ -14,6 +14,7 @@ const ShelfDiv = styled.div`
     justify-content: center;
     align-items: center;
     margin: .5vw 0;
+    padding: 0 10px;
 `
 
 const BookCard = styled.div`
@@ -34,11 +35,13 @@ const CardBody = styled.div`
 `
 
 const BookCover = styled.img`
-    height: 9vw;
-    width: auto;    
+    max-height: 9vw;
+    width: auto;
+    max-width: 90%;    
     cursor: pointer;
     &:hover {
-        height: 10vw;
+        max-height: 10vw;
+        max-width: 100%;
     }
 `
 
