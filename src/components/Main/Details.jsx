@@ -29,7 +29,13 @@ function Details(props) {
     }
 
     let description = '';  
-    if (props)
+    if (props.book.data.description && typeof props.book.data.description === 'string') {
+        description = props.book.data.description
+    } else if (props.book.data.description && typeof props.book.data.description.value !== 'undefined') {
+        description = props.book.data.description.value
+    } else {
+        description = 'No description provided'
+    }
 
     return (
         <>
@@ -91,11 +97,7 @@ function Details(props) {
                     </div>
                     <h5>Description:</h5>
                     <p className='text-muted'>
-                        {typeof props.book.data.description === 'string' ?
-                            props.book.data.description
-                        :
-                            props.book.data.description.value
-                        }
+                        {description}
                     </p>
                 </Modal.Body>
             </Modal>

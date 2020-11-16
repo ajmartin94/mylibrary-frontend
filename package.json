@@ -23,7 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "REACT_APP_DATABASE_URL='https://mylibrary-backend.herokuapp.com/api' npm run build && cp build/index.html build/200.html && surge build http://mylibrary.surge.sh/"
   },
   "eslintConfig": {
     "extends": [
