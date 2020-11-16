@@ -1,5 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import LibraryContent from './LibraryContent';
+import ConfirmLibraryDeleteModal from '../Modals/ConfirmLibraryDeleteModal';
 import styled from 'styled-components';
 import AddLibrary from './AddLibrary'
 import SearchForm from './SearchForm'
@@ -162,30 +163,7 @@ function Library(props) {
                     }
                 </LibraryContentWrapper>
             </LibraryDiv>
-            <div 
-                className='modal fade' 
-                id='confirmModal' 
-                tabIndex='-1' 
-                aria-labelledby='confirmModalLabel' 
-                aria-hidden='true'
-            >
-                <div className='modal-dialog'>
-                    <div className='modal-content'>
-                        <div className='modal-header'>
-                            <h5 className='modal-title' id='confirmModalLabel'>Delete Library</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div className='modal-body'>
-                            <p>Are you sure you want to delete this library?</p>
-                        </div>
-                        <div className='modal-footer'>
-                            <button type='button' className='btn btn-danger' data-dismiss='modal' onClick={handleDelete}>Delete</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {pendDelete && <ConfirmLibraryDeleteModal setPendDelete={setPendDelete} handleDeleteLibrary={()=>props.handleDeleteLibrary(pendDelete)} />}
         </>
     )
 }
