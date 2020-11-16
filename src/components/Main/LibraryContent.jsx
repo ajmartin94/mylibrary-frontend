@@ -4,7 +4,6 @@ import Details from './Details';
 
 const LibraryContentDiv = styled.div`
     width: 100%;
-    padding-top: 5vw;
 `
 
 const ShelfDiv = styled.div`

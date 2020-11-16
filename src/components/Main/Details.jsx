@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import Modal from 'react-bootstrap/Modal'
 import styled from 'styled-components'
-import ConfirmBookDeleteModal from './ConfirmBookDeleteModal';
+import ConfirmBookDeleteModal from '../Modals/ConfirmBookDeleteModal';
 
 const CoverImg = styled.img`
     height: 20vw;

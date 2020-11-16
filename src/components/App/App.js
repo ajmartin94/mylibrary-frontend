@@ -24,6 +24,7 @@ function App() {
   const [activeLibraryID,setActiveLibraryID] = useState(null)
   const [allUsers,setAllUsers] = useState(null)
   const [otherUserData,setOtherUserData] = useState(null)
+  const [viewedUser,setViewedUser] = useState(null)
 
   const history = useHistory();
 
@@ -195,6 +196,7 @@ function App() {
                 handleDeleteLibrary={handleDeleteLibrary}
                 handleAddToLibrary={handleAddToLibrary} 
                 handleRemoveBook={handleRemoveBook}
+                user={currentUser}
               />
             } 
           </Route>

@@ -37,6 +37,27 @@ const TabList = styled.ul`
     margin: 10px;
 `
 
+const ChalkboardImg = styled.img`
+    height: 80%;
+    position: absolute;
+`
+const Chalkboard = styled.div`
+    width: 100%;
+    height: 5vw;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+const ChalkboardTitle = styled.h4`
+    font-family: 'Pangolin', cursive;
+    color: #dfdfdf;
+    position: absolute;
+    font-size: 3vw;
+    margin: 0;
+`
+
 function Library(props) {
     const [visible,setVisible] = useState(false)
     const [pendDelete,setPendDelete] = useState(null)
@@ -121,6 +142,10 @@ function Library(props) {
                     }
                 </TabList>
                 <LibraryContentWrapper className='tab-content' id='libraryContent'>
+                    <Chalkboard>
+                        <ChalkboardImg src='Chalkboard.png' />
+                        <ChalkboardTitle>{props.otherUser ? username : props.user.username}'s Library</ChalkboardTitle>
+                    </Chalkboard>
                     {props.libraryData && props.libraryData.map((library,index)=>{
                         return <div 
                             className={library.id===props.activeLibraryID ? 'tab-pane fade show active' : 'tab-pane fade'}
