@@ -7,10 +7,14 @@ const NavTab = styled.div`
     justify-content: center;
 ` 
 
+const LogoText = styled.span`
+    font-family: 'Roboto Slab', serif;
+`
+
 function Header(props) {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-between">
-            <Link className="navbar-brand" to="/">MyLibrary</Link>
+            <Link className="navbar-brand" to="/"><LogoText>MyLibrary</LogoText></Link>
             <NavTab>
                 {props.user ?
                     <Link className='nav-link mr-2' to='#' onClick={props.handleLogout}>Log Out, {props.user.username}</Link>

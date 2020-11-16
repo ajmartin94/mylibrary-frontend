@@ -5,6 +5,7 @@ import Footer from '../Partials/Footer'
 import Login from '../Main/Login'
 import SignUp from '../Main/Signup'
 import Library from '../Main/Library'
+import WelcomePage from '../Main/WelcomePage'
 import AllUsers from '../Main/AllUsers'
 import styled from 'styled-components';
 import {Switch,Route,useHistory, useParams} from 'react-router-dom';
@@ -187,7 +188,7 @@ function App() {
       <Main>
         <Switch>
           <Route exact path='/'>
-            {libraryData &&
+            {libraryData && currentUser ?
               <Library 
                 libraryData={libraryData} 
                 activeLibraryID={activeLibraryID}
@@ -198,6 +199,8 @@ function App() {
                 handleRemoveBook={handleRemoveBook}
                 user={currentUser}
               />
+            : 
+              <WelcomePage />
             } 
           </Route>
           <Route exact path='/signup'>
