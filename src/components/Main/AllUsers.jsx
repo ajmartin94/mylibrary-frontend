@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
 const ContainerDiv = styled.div`
-    height: 40vw;
+    height: 100%;
 `
 
 function AllUsers(props) {

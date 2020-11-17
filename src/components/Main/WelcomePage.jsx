@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 
 const WelcomeWrapper = styled.div`
-    height: 50vw;
+    height: 100%;
     display: flex;
     align-items: center;
 `

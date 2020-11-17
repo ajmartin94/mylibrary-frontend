@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 
 const FormWrapper = styled.div`
-    height: 50vw;
+    height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;

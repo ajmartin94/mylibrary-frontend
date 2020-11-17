@@ -6,6 +6,14 @@ import AddLibrary from './AddLibrary'
 import SearchForm from './SearchForm'
 import { useParams } from 'react-router';
 
+const ContentWrapper = styled.div`
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
 const LibraryDiv = styled.div`
     width: 75%;
     display: flex;
@@ -80,7 +88,7 @@ function Library(props) {
     },[props,username])
 
     return (
-        <>
+        <ContentWrapper>
             {!props.otherUser &&
                 <SearchForm 
                     handleAddToLibrary={props.handleAddToLibrary}
@@ -163,7 +171,7 @@ function Library(props) {
                 </LibraryContentWrapper>
             </LibraryDiv>
             {pendDelete && <ConfirmLibraryDeleteModal setPendDelete={setPendDelete} handleDeleteLibrary={()=>props.handleDeleteLibrary(pendDelete)} />}
-        </>
+        </ContentWrapper>
     )
 }
 
