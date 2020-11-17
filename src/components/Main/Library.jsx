@@ -75,8 +75,8 @@ function Library(props) {
     const handleDelete = () => {
         props.handleDeleteLibrary(pendDelete)
         setPendDelete(null)
-
     }
+    
     const {username} = useParams()
     
     useEffect(()=>{

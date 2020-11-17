@@ -202,13 +202,12 @@ function App() {
     })
   }
 
-  const handleUpdateRating = (bookId,rating) => {
+  const handleUpdateRating = (existingRatingId,rating) => {
     axios({
-      method: 'PUT',
-      url: `${process.env.REACT_APP_DATABASE_URL}/ratings/${rating}`,
+      method: 'PATCH',
+      url: `${process.env.REACT_APP_DATABASE_URL}/ratings/${existingRatingId}/`,
       data: {
-          rating: rating,
-          bookId: bookId
+          rating: rating
       },
       headers: {
         Authorization: 'Bearer '+currentUser.token

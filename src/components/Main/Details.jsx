@@ -38,6 +38,7 @@ function Details(props) {
     const [pendDelete,setPendDelete] = useState(null)
     const [userRating,setUserRating] = useState(0)
     const [averageRating,setAverageRating] = useState(0)
+    const [existingRatingId,setExistingRatingId] = useState(null)
 
     const handleClose = () => {
         setShow(false)
@@ -45,8 +46,8 @@ function Details(props) {
     }
 
     const changeRating = (rating) => {
-        if (props.book.rating && props.book.rating[0]) {
-            props.handleUpdateRating(props.book.id,rating)
+        if (existingRatingId) {
+            props.handleUpdateRating(existingRatingId,rating)
         } else {
             props.handleAddRating(props.book.id,rating)
         }
@@ -60,13 +61,17 @@ function Details(props) {
             setAverageRating(findAverage);
 
             let findUserRating = 0;
+            let existingId = null;
             try {
-                findUserRating = props.book.ratings.find(ratingSet => ratingSet.userid.username === props.username).rating
+                const findUserRatingObject = props.book.ratings.find(ratingSet => ratingSet.userid.username === props.username)
+                findUserRating = findUserRatingObject.rating
+                existingId = findUserRatingObject.id
             } catch (err) {
                 findUserRating = 0;
             }
         
             setUserRating(findUserRating)
+            setExistingRatingId(existingId)
         }
     })
 
@@ -143,7 +148,7 @@ function Details(props) {
                             <StarRatings 
                                 rating={userRating} 
                                 starRatedColor='purple' 
-                                changeRating={props.otherUser ? false : changeRating} 
+                                changeRating={!props.otherUser && changeRating} 
                                 numberOfStars={5} name='userRating'
                                 starDimension='2vw'
                             />
@@ -153,7 +158,6 @@ function Details(props) {
                             <StarRatings 
                                 rating={averageRating} 
                                 starRatedColor='purple' 
-                                changeRating={false} 
                                 numberOfStars={5} name='averageRating'
                                 starDimension='2vw'
                             />
