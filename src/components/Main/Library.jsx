@@ -157,6 +157,8 @@ function Library(props) {
                             <LibraryContent 
                                 books={library.books} 
                                 handleRemoveBook={props.handleRemoveBook}
+                                handleAddRating={props.handleAddRating}
+                                handleUpdateRating={props.handleUpdateRating}
                             />
                         </div>
                     })

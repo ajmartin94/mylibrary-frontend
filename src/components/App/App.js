@@ -126,7 +126,6 @@ function App() {
   }
 
   const handleAddNewLibrary = (name) => {
-    console.log(`attempting to add library ${name} to url: ${process.env.REACT_APP_DATABASE_URL}/library/`)
     axios({
       method: 'post',
       url: `${process.env.REACT_APP_DATABASE_URL}/library/`,
@@ -182,6 +181,47 @@ function App() {
     })
   }
 
+  const handleAddRating = (bookId,rating) => {
+    console.log('bookid: '+bookId)
+    axios({
+      method: 'POST',
+      url: `${process.env.REACT_APP_DATABASE_URL}/ratings/`,
+      data: {
+          rating: rating,
+          bookId: bookId
+      },
+      headers: {
+        Authorization: 'Bearer '+currentUser.token
+      }
+    })
+    .then(resp => {
+      updateLibraryData()
+    })
+    .catch(err => {
+      console.log(err.response)
+    })
+  }
+
+  const handleUpdateRating = (bookId,rating) => {
+    axios({
+      method: 'PUT',
+      url: `${process.env.REACT_APP_DATABASE_URL}/ratings/${rating}`,
+      data: {
+          rating: rating,
+          bookId: bookId
+      },
+      headers: {
+        Authorization: 'Bearer '+currentUser.token
+      }
+    })
+    .then(resp => {
+      updateLibraryData()
+    })
+    .catch(err => {
+      console.log(err.response)
+    })
+  }
+
   return (
     <div className='bg-light'>
       <Header user={currentUser} handleLogout={handleLogout} />
@@ -197,6 +237,8 @@ function App() {
                 handleDeleteLibrary={handleDeleteLibrary}
                 handleAddToLibrary={handleAddToLibrary} 
                 handleRemoveBook={handleRemoveBook}
+                handleAddRating={handleAddRating}
+                handleUpdateRating={handleUpdateRating}
                 user={currentUser}
               />
             : 
