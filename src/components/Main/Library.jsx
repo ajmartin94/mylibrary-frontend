@@ -159,6 +159,8 @@ function Library(props) {
                                 handleRemoveBook={props.handleRemoveBook}
                                 handleAddRating={props.handleAddRating}
                                 handleUpdateRating={props.handleUpdateRating}
+                                username={props.otherUser ? username : props.user.username}
+                                otherUser={props.otherUser}
                             />
                         </div>
                     })

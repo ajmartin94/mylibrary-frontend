@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Modal from 'react-bootstrap/Modal'
 import styled from 'styled-components'
 import ConfirmBookDeleteModal from '../Modals/ConfirmBookDeleteModal';
@@ -36,6 +36,8 @@ const StarDiv = styled.div`
 function Details(props) {
     const [show,setShow] = useState(true)
     const [pendDelete,setPendDelete] = useState(null)
+    const [userRating,setUserRating] = useState(0)
+    const [averageRating,setAverageRating] = useState(0)
 
     const handleClose = () => {
         setShow(false)
@@ -49,6 +51,24 @@ function Details(props) {
             props.handleAddRating(props.book.id,rating)
         }
     }
+
+    useEffect(()=>{
+        if (props.book.ratings.length > 0) {
+            const findAverage = props.book.ratings.reduce((sum,ratingSet)=> {
+                return sum + ratingSet.rating
+            }, 0)/props.book.ratings.length
+            setAverageRating(findAverage);
+
+            let findUserRating = 0;
+            try {
+                findUserRating = props.book.ratings.find(ratingSet => ratingSet.userid.username === props.username).rating
+            } catch (err) {
+                findUserRating = 0;
+            }
+        
+            setUserRating(findUserRating)
+        }
+    })
 
     let description = '';  
     if (props.book.data.description && typeof props.book.data.description === 'string') {
@@ -121,9 +141,9 @@ function Details(props) {
                         <StarDiv>
                             <h6>User Rating:</h6>
                             <StarRatings 
-                                rating={props.book.rating && props.book.rating[0] ? props.book.rating[0] : 0} 
+                                rating={userRating} 
                                 starRatedColor='purple' 
-                                changeRating={changeRating} 
+                                changeRating={props.otherUser ? false : changeRating} 
                                 numberOfStars={5} name='userRating'
                                 starDimension='2vw'
                             />
@@ -131,7 +151,7 @@ function Details(props) {
                         <StarDiv>
                             <h6>Average Rating:</h6>
                             <StarRatings 
-                                rating={props.book.average_rating ? parseFloat(props.book.average_rating) : 0} 
+                                rating={averageRating} 
                                 starRatedColor='purple' 
                                 changeRating={false} 
                                 numberOfStars={5} name='averageRating'

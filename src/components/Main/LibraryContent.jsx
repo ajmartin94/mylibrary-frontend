@@ -73,6 +73,8 @@ function LibraryContent(props) {
                     handleRemoveBook={props.handleRemoveBook} 
                     handleAddRating={props.handleAddRating}
                     handleUpdateRating={props.handleUpdateRating}
+                    username={props.username}
+                    otherUser={props.otherUser}
                 />
             }
         </LibraryContentDiv>
