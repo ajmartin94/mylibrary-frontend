@@ -51,6 +51,9 @@ function Details(props) {
         } else {
             props.handleAddRating(props.book.id,rating)
         }
+        setShow(false)
+        setUserRating(rating)
+        setShow(true)
     }
 
     useEffect(()=>{

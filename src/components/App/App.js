@@ -53,7 +53,7 @@ function App() {
         }
       })
       .then(resp => {
-        setLibraryData(resp.data);
+        setLibraryData([...resp.data]);
       })
     }
     
