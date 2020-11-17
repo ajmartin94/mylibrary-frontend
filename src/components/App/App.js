@@ -5,6 +5,7 @@ import Footer from '../Partials/Footer'
 import Login from '../Main/Login'
 import SignUp from '../Main/Signup'
 import Library from '../Main/Library'
+import WelcomePage from '../Main/WelcomePage'
 import AllUsers from '../Main/AllUsers'
 import styled from 'styled-components';
 import {Switch,Route,useHistory, useParams} from 'react-router-dom';
@@ -52,7 +53,7 @@ function App() {
         }
       })
       .then(resp => {
-        setLibraryData(resp.data);
+        setLibraryData([...resp.data]);
       })
     }
     
@@ -125,7 +126,6 @@ function App() {
   }
 
   const handleAddNewLibrary = (name) => {
-    console.log(`attempting to add library ${name} to url: ${process.env.REACT_APP_DATABASE_URL}/library/`)
     axios({
       method: 'post',
       url: `${process.env.REACT_APP_DATABASE_URL}/library/`,
@@ -181,13 +181,53 @@ function App() {
     })
   }
 
+  const handleAddRating = (bookId,rating) => {
+    console.log('bookid: '+bookId)
+    axios({
+      method: 'POST',
+      url: `${process.env.REACT_APP_DATABASE_URL}/ratings/`,
+      data: {
+          rating: rating,
+          bookId: bookId
+      },
+      headers: {
+        Authorization: 'Bearer '+currentUser.token
+      }
+    })
+    .then(resp => {
+      updateLibraryData()
+    })
+    .catch(err => {
+      console.log(err.response)
+    })
+  }
+
+  const handleUpdateRating = (existingRatingId,rating) => {
+    axios({
+      method: 'PATCH',
+      url: `${process.env.REACT_APP_DATABASE_URL}/ratings/${existingRatingId}/`,
+      data: {
+          rating: rating
+      },
+      headers: {
+        Authorization: 'Bearer '+currentUser.token
+      }
+    })
+    .then(resp => {
+      updateLibraryData()
+    })
+    .catch(err => {
+      console.log(err.response)
+    })
+  }
+
   return (
     <div className='bg-light'>
       <Header user={currentUser} handleLogout={handleLogout} />
       <Main>
         <Switch>
           <Route exact path='/'>
-            {libraryData &&
+            {libraryData && currentUser ?
               <Library 
                 libraryData={libraryData} 
                 activeLibraryID={activeLibraryID}
@@ -196,8 +236,12 @@ function App() {
                 handleDeleteLibrary={handleDeleteLibrary}
                 handleAddToLibrary={handleAddToLibrary} 
                 handleRemoveBook={handleRemoveBook}
+                handleAddRating={handleAddRating}
+                handleUpdateRating={handleUpdateRating}
                 user={currentUser}
               />
+            : 
+              <WelcomePage />
             } 
           </Route>
           <Route exact path='/signup'>

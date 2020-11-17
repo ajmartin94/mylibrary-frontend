@@ -66,7 +66,17 @@ function LibraryContent(props) {
                 </ShelfDiv>
             })}
             
-            {activeBook && <Details book={activeBook} setActiveBook={setActiveBook} handleRemoveBook={props.handleRemoveBook} />}
+            {activeBook && 
+                <Details 
+                    book={activeBook} 
+                    setActiveBook={setActiveBook} 
+                    handleRemoveBook={props.handleRemoveBook} 
+                    handleAddRating={props.handleAddRating}
+                    handleUpdateRating={props.handleUpdateRating}
+                    username={props.username}
+                    otherUser={props.otherUser}
+                />
+            }
         </LibraryContentDiv>
     )
 }

@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import axios from 'axios';
-import SearchResults from './SearchResults';
+import SearchResults from '../Modals/SearchResults';
 import styled from 'styled-components';
 
 const Form = styled.form`
