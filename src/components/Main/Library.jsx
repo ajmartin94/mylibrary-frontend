@@ -68,13 +68,7 @@ function Library(props) {
     }
 
     const handleClick = (id) => {
-        console.log(id)
         props.setActiveLibraryID(id)
-    }
-
-    const handleDelete = () => {
-        props.handleDeleteLibrary(pendDelete)
-        setPendDelete(null)
     }
     
     const {username} = useParams()
@@ -83,7 +77,7 @@ function Library(props) {
         if (props.otherUser) {
             props.getUserData(username)
         }
-    },[username])
+    },[props,username])
 
     return (
         <>
@@ -153,6 +147,7 @@ function Library(props) {
                             id={'tab'+index}
                             role='tabpanel'
                             aria-labelledby={'tab'+index}
+                            key={index}
                         >
                             <LibraryContent 
                                 books={library.books} 

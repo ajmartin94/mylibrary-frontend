@@ -9,6 +9,12 @@ const CardWrapper = styled.div`
     flex-wrap: wrap;
 `
 
+const CardContent = styled.div`
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between;
+`
+
 function SearchResults(props) {
     const [show,setShow] = useState(true)
 
@@ -28,14 +34,16 @@ function SearchResults(props) {
                     {props.searchData.map((result,index) => {
                         return (
                             <div className='card w-25' key={index}>
-                                <div className='card-body'>
-                                    <h5 className='card-title'>{result.title_suggest}</h5>
-                                    <h6 className='card-subtitle mb-2 text-muted'>{result.author_name}</h6>
+                                <CardContent className='card-body'>
+                                    <div>
+                                        <h5 className='card-title'>{result.title_suggest}</h5>
+                                        <h6 className='card-subtitle mb-2 text-muted'>{result.author_name}</h6>
+                                    </div>
                                     <button 
                                         onClick={()=>handleAdd(result.key)} 
-                                        className='btn btn-primary'
+                                        className='btn btn-info'
                                     >Add to Library</button>
-                                </div>
+                                </CardContent>
                             </div>
                         )
                     })}

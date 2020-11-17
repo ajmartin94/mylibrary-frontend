@@ -45,11 +45,11 @@ function LibraryContent(props) {
 
     return (
         <LibraryContentDiv>
-            {mappableArray.map(shelfNumber => {
-                return <ShelfDiv>
+            {mappableArray.map((shelfNumber,index) => {
+                return <ShelfDiv key={index}>
                     {props.books.map((book,index) => {
                         if (index >= (shelfNumber-1)*10 && index < shelfNumber*10) {
-                            return <BookCard>
+                            return <BookCard key={index}>
                                 <BookCover 
                                     src={`http://covers.openlibrary.org/b/id/${book.data.covers[0]}-L.jpg`} 
                                     className='card-img-top'

@@ -8,7 +8,7 @@ import Library from '../Main/Library'
 import WelcomePage from '../Main/WelcomePage'
 import AllUsers from '../Main/AllUsers'
 import styled from 'styled-components';
-import {Switch,Route,useHistory, useParams} from 'react-router-dom';
+import {Switch,Route,useHistory} from 'react-router-dom';
 import axios from 'axios';
 
 const Main = styled.div`
@@ -25,7 +25,6 @@ function App() {
   const [activeLibraryID,setActiveLibraryID] = useState(null)
   const [allUsers,setAllUsers] = useState(null)
   const [otherUserData,setOtherUserData] = useState(null)
-  const [viewedUser,setViewedUser] = useState(null)
 
   const history = useHistory();
 
@@ -92,19 +91,16 @@ function App() {
   }
 
   const handleSignUp = (userData) => {
-    console.log(userData)
     axios({
       method: 'POST',
       url:`${process.env.REACT_APP_DATABASE_URL}/users/`,
       data: userData,
     })
     .then(resp => {
-      console.log(resp)
       setCurrentUser(resp.data)
       setLoginError(null)
       history.go(-2);
     })
-    .catch(err => alert(err))
   }
 
   const handleAddToLibrary = (key) => {
@@ -138,9 +134,6 @@ function App() {
     })
     .then(resp => {
       updateLibraryData()
-    })
-    .catch(err => {
-      console.log(err.response)
     })
   }
 
@@ -176,13 +169,11 @@ function App() {
       url: `${process.env.REACT_APP_DATABASE_URL}/library?username=${username}`
     })
     .then(resp => {
-      console.log(resp.data)
       setOtherUserData(resp.data)
     })
   }
 
   const handleAddRating = (bookId,rating) => {
-    console.log('bookid: '+bookId)
     axios({
       method: 'POST',
       url: `${process.env.REACT_APP_DATABASE_URL}/ratings/`,
@@ -196,9 +187,6 @@ function App() {
     })
     .then(resp => {
       updateLibraryData()
-    })
-    .catch(err => {
-      console.log(err.response)
     })
   }
 
@@ -215,9 +203,6 @@ function App() {
     })
     .then(resp => {
       updateLibraryData()
-    })
-    .catch(err => {
-      console.log(err.response)
     })
   }
 

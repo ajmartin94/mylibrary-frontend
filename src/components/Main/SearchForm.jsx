@@ -35,7 +35,7 @@ function SearchForm(props) {
                     placeholder='find a book' 
                     onChange={(e)=>handleChange(e)}
                 />
-                <button type='submit' className='btn btn-primary mb-2'>Search</button>
+                <button type='submit' className='btn btn-success mb-2'>Search</button>
             </Form>
             {searchData && <SearchResults searchData={searchData} handleAddToLibrary={props.handleAddToLibrary} setSearchData={setSearchData} />}
         </>

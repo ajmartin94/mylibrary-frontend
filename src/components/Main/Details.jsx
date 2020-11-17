@@ -76,7 +76,7 @@ function Details(props) {
             setUserRating(findUserRating)
             setExistingRatingId(existingId)
         }
-    })
+    },[props])
 
     let description = '';  
     if (props.book.data.description && typeof props.book.data.description === 'string') {
@@ -117,6 +117,7 @@ function Details(props) {
                                         data-target="#coversCarousel" 
                                         data-slide-to={index} 
                                         className={index===0 ? "active" : ''}
+                                        key={index}
                                     ></li>
                                 )
                             })}
@@ -126,6 +127,7 @@ function Details(props) {
                                 return (
                                     <CarouselItem 
                                         className={index===0 ? 'carousel-item bg-dark active' : 'carousel-item bg-dark'}
+                                        key={index}
                                     >
                                         <CoverImg    
                                             className='d-block'
